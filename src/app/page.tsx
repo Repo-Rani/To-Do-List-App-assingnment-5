@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import { useState } from "react";
 import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import { Task } from "../../types/type";
@@ -63,6 +63,12 @@ const ToDo = () => {
     );
   };
 
+  const handleTaskChange = (id: number, field: "text" | "description", value: string) => {
+    setTasks(tasks.map((t) =>
+      t.id === id ? { ...t, [field]: value } : t
+    ));
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-6">
       <div className="shadow-xl rounded-lg p-8 w-full max-w-3xl border-2 border-orange-600">
@@ -106,28 +112,12 @@ const ToDo = () => {
                     <input
                       type="text"
                       value={t.text}
-                      onChange={(e) =>
-                        setTasks(
-                          tasks.map((task) =>
-                            task.id === t.id
-                              ? { ...task, text: e.target.value }
-                              : task
-                          )
-                        )
-                      }
+                      onChange={(e) => handleTaskChange(t.id, "text", e.target.value)}
                       className="w-full p-2 border border-orange-300 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring focus:ring-orange-400"
                     />
                     <textarea
                       value={t.description}
-                      onChange={(e) =>
-                        setTasks(
-                          tasks.map((task) =>
-                            task.id === t.id
-                              ? { ...task, description: e.target.value }
-                              : task
-                          )
-                        )
-                      }
+                      onChange={(e) => handleTaskChange(t.id, "description", e.target.value)}
                       className="w-full p-2 border border-orange-300 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring focus:ring-orange-400"
                     ></textarea>
                   </div>
