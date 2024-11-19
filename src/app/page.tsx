@@ -131,7 +131,13 @@ const ToDo = () => {
                 )}
                 <div className="flex items-center justify-between mt-4">
                   <button
-                    onClick={() => toggleEdit(t.id)}
+                    onClick={() => {
+                      if (t.isEditing) {
+                        updateTask(t.id, t.text, t.description);
+                      } else {
+                        toggleEdit(t.id);
+                      }
+                    }}
                     className="text-orange-300 hover:text-orange-500 transition"
                   >
                     {t.isEditing ? <FaSave size={18} /> : <FaEdit size={18} />}
